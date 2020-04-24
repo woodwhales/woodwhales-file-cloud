@@ -48,7 +48,7 @@ mvn clean install
 java -jar woodwhales-file-cloud.jar
 ```
 
-项目启动成功，默认开启 12306 端口，可在 `src\main\resources\application.yml` 配置文件中修改启动端口。
+项目启动成功，默认开启 12306 端口，可在 `src\main\resources\application.yml` 配置文件中修改启动端口。浏览器访问：http://127.0.0.1:12306/file-cloud/
 
 ## 功能迭代
 
