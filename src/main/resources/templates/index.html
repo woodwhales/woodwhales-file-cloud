@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+  <title>woodwhales-file-cloud</title>
+
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
+  
+  <link rel="stylesheet" type="text/css" media="screen" href="plugins/iconic/ionicons.min.css">
+  
+  <!-- overlayScrollbars -->
+  <link rel="stylesheet" href="plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="dist/css/adminlte.min.css">
+  <!-- Ion Slider -->
+  <link rel="stylesheet" href="plugins/ion-rangeslider/css/ion.rangeSlider.min.css">
+  <!-- bootstrap slider -->
+  <link rel="stylesheet" href="plugins/bootstrap-slider/css/bootstrap-slider.min.css">
+  <!-- Google Font: Source Sans Pro -->
+  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+</head>
+<body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
+<div class="wrapper">
+  <!-- 导航栏 -->
+  <div th:replace="commons/bar::#top"></div>
+  <!-- 侧边栏 -->
+  <div th:replace="commons/bar::#side"></div>
+
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1 class="m-0 text-dark">独立开源网盘</h1>
+          </div><!-- /.col -->
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="#">主页</a></li>
+              <li class="breadcrumb-item active">主仪表盘</li>
+            </ol>
+          </div><!-- /.col -->
+        </div><!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+
+    <!-- Main content -->
+    <section class="content">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-12">
+            <div class="card card-primary">
+              <div class="card-header">
+                <h3 class="card-title">使用容量</h3>
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body">
+                <div class="row margin">
+                  <div class="col-sm-12">
+                    <input id="usedSize" type="text" name="usedSize">
+                  </div>
+                </div>
+              </div>
+              <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+          </div>
+          <!-- /.col -->
+        </div>
+        <!-- /.row -->
+        
+        <!-- Info boxes -->
+        <div class="row">
+          <div class="col-12 col-sm-6 col-md-3">
+            <div class="info-box">
+              <span class="info-box-icon bg-info elevation-1"><ion-icon name="document-text-outline"></ion-icon></span>
+              <div class="info-box-content">
+                <span class="info-box-text">文本类型</span>
+                <span class="info-box-number">
+                  10
+                  <small>%</small>
+                </span>
+              </div>
+              <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+          </div>
+          <!-- /.col -->
+          <div class="col-12 col-sm-6 col-md-3">
+            <div class="info-box mb-3">
+              <span class="info-box-icon bg-danger elevation-1"><ion-icon name="image-outline"></ion-icon></i></span>
+              <div class="info-box-content">
+                <span class="info-box-text">图像类型</span>
+                <span class="info-box-number">41,410</span>
+              </div>
+              <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+          </div>
+          <!-- /.col -->
+
+          <!-- fix for small devices only -->
+          <div class="clearfix hidden-md-up"></div>
+
+          <div class="col-12 col-sm-6 col-md-3">
+            <div class="info-box mb-3">
+              <span class="info-box-icon bg-success elevation-1"><ion-icon name="videocam-outline"></ion-icon></span>
+
+              <div class="info-box-content">
+                <span class="info-box-text">视频类型</span>
+                <span class="info-box-number">760</span>
+              </div>
+              <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+          </div>
+          <!-- /.col -->
+          <div class="col-12 col-sm-6 col-md-3">
+            <div class="info-box mb-3">
+              <span class="info-box-icon bg-warning elevation-1"><ion-icon name="musical-notes-outline"></ion-icon></span>
+
+              <div class="info-box-content">
+                <span class="info-box-text">音乐类型</span>
+                <span class="info-box-number">2,000</span>
+              </div>
+              <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+          </div>
+          <!-- /.col -->
+        </div>
+        <!-- /.row -->
+
+        <!-- Main row -->
+		<div class="row">
+			<div class="col-12">
+				<div class="card">
+					<div class="card-header">
+						<h3 class="card-title">当前位置：<span th:text="${currentPath}"></span></h3>
+						<div class="card-tools"><a class="opreate-btn" href="javascript:void(0);" th:data-currentpath="${currentPath}" data-toparent="true" data-opreation='changeDirToParent' th:text="${#strings.equals(currentPath, '/') ? '' : '返回上一级'}"></a></div>				
+					</div>
+					<!-- /.card-header -->
+					<div class="card-body table-responsive p-0">
+						<table class="table table-hover text-nowrap">
+							<thead>
+								<tr>
+									<th>序号</th>
+									<th>文件名</th>
+									<th>大小</th>
+									<th>修改时间</th>
+									<th>操作</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr th:each="file,fileStat : ${files}" th:data-name="${file.name}" 
+								th:data-path="${file.path}" th:data-file="${file.file}" th:data-directory="${file.directory}">
+									<td th:text="${fileStat.index+1}"></td>
+									<td class="opreate-btn" style="cursor:pointer;" data-opreation='preview' th:data-code="${file.fileCode}" th:data-directory="${file.directory}" th:data-filepath="${file.filePath}" th:data-name="${file.name}"><ion-icon th:name="${file.ioniconName}"></ion-icon>&nbsp;&nbsp;<span th:text="${file.name}"></span></td>
+									<td th:text="${file.fileSize}">文件大小</td>
+									<td><div class="sparkbar" data-color="#00a65a" data-height="20" th:text="${file.updateTime}">文件修改时间</div></td>
+									<td>
+									   <ion-icon th:if=" ${#bools.isTrue(file.file)}" name="cloud-download-outline" class="opreate-btn" style="cursor:pointer;" data-opreation='download' th:data-name="${file.name}" th:data-path="${file.path}" th:data-code="${file.fileCode}"></ion-icon>&nbsp;&nbsp;&nbsp;&nbsp;
+									   <ion-icon th:if=" ${#bools.isTrue(file.directory)}"></ion-icon>&nbsp;&nbsp;&nbsp;&nbsp;
+									   <ion-icon name="share-social-outline" class="opreate-btn" style="cursor:pointer;" data-opreation='share' th:data-code="${file.fileCode}"></ion-icon>&nbsp;&nbsp;&nbsp;&nbsp;
+									   <ion-icon name="alert-circle-outline" class="opreate-btn" style="cursor:pointer;" data-opreation='info' th:data-code="${file.fileCode}"></ion-icon>&nbsp;&nbsp;&nbsp;&nbsp;
+									   <ion-icon name="create-outline" class="opreate-btn" style="cursor:pointer;" data-opreation='edit' th:data-code="${file.fileCode}"></ion-icon>&nbsp;&nbsp;&nbsp;&nbsp;
+									   <ion-icon name="trash-outline" class="opreate-btn" style="cursor:pointer;" data-opreation='delete' th:data-code="${file.fileCode}"></ion-icon>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					<!-- /.card-body -->
+				</div>
+				<!-- /.card -->
+			</div>
+		</div>
+
+		  </div>
+        </div>
+        <!-- /.row -->
+      </div><!--/. container-fluid -->
+    </section>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+
+  <!-- 页脚 -->
+  <div th:replace="commons/bar::#footer"></div>
+</div>
+<!-- ./wrapper -->
+
+<!-- REQUIRED SCRIPTS -->
+<!-- jQuery -->
+<script src="plugins/jquery/jquery.min.js"></script>
+<!-- Bootstrap -->
+<script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- overlayScrollbars -->
+<script src="plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
+<!-- AdminLTE App -->
+<script src="dist/js/adminlte.js"></script>
+<!-- Bootstrap 4 -->
+<script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- Ion Slider -->
+<script src="plugins/ion-rangeslider/js/ion.rangeSlider.min.js"></script>
+
+<script src="https://unpkg.com/ionicons@5.0.0/dist/ionicons.js"></script>
+<!-- Bootstrap slider -->
+<script src="plugins/bootstrap-slider/bootstrap-slider.min.js"></script>
+
+<!-- OPTIONAL SCRIPTS -->
+<script src="dist/js/demo.js"></script>
+
+<!-- PAGE PLUGINS -->
+<!-- jQuery Mapael -->
+<script src="plugins/jquery-mousewheel/jquery.mousewheel.js"></script>
+<script src="plugins/raphael/raphael.min.js"></script>
+<script src="plugins/jquery-mapael/jquery.mapael.min.js"></script>
+<script src="plugins/jquery-mapael/maps/usa_states.min.js"></script>
+<!-- ChartJS -->
+<script src="plugins/chart.js/Chart.min.js"></script>
+
+<!-- PAGE SCRIPTS -->
+<script src="dist/js/pages/dashboard2.js"></script>
+<script type="text/javascript">
+$(function () {
+  $('#usedSize').ionRangeSlider({
+    type      : 'single',
+    step      : 1,
+    postfix   : 'GB',
+    from      : 1,
+    hideMinMax: true,
+    hideFromTo: true
+  })
+})
+
+var DownLoadFile = function (options) {
+    var config = $.extend(true, { method: 'get' }, options);
+    var $iframe = $('<iframe id="down-file-iframe" />');
+    var $form = $('<form target="down-file-iframe" method="' + config.method + '" />');
+    $form.attr('action', config.url);
+    for (var key in config.data) {
+        $form.append('<input type="hidden" name="' + key + '" value="' + config.data[key] + '" />');
+    }
+    $iframe.append($form);
+    $(document.body).append($iframe);
+    $form[0].submit();
+    $iframe.remove();
+}
+
+$('.opreate-btn').click(function() {
+	var code = $(this).data('code');
+	var name = $(this).data('name');
+	var path = $(this).data('path');
+	var filePath = $(this).data('filepath');
+	var isDirectory = $(this).data('directory');
+	var opreation = $(this).data('opreation');
+	var toParent = $(this).data('toparent');
+	var currentpath = $(this).data('currentpath');
+	
+	console.log('opreation', opreation);
+	console.log('toParent', toParent);
+	console.log('currentpath', currentpath);
+	
+	if((isDirectory && opreation == 'preview')) {
+		window.location.href='./?path='+encodeURI(filePath)
+	}
+	
+	if(opreation == 'changeDirToParent' && toParent) {
+		console.log('opreation', opreation);
+	    console.log('toParent', toParent);
+		window.location.href='./?path='+encodeURI(currentpath)+'&toParent='+toParent
+	}
+	
+	if(opreation == 'download') {
+		window.location.href='http://127.0.0.1:12306/file-cloud/file/download?path='+encodeURI(path)+'&fileName='+encodeURI(name)
+    }
+	
+})
+
+</script>
+</body>
+</html>

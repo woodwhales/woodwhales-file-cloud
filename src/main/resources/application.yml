@@ -1,7 +1,18 @@
 server:
   address: 0.0.0.0
-  port: 8086
-  
-logging:
+  port: 12306
+  servlet: 
+      context-path: /file-cloud
+
+spring: 
+  thymeleaf:
+    cache: false
+  servlet: 
+    multipart:
+      max-file-size: 1TB
+      max-request-size: 1TB  
+
+logging: 
   level:
-    org.woodwhales.fileCloud: DEBUG
+    org.woodwhales.cloud: DEBUG
+    
