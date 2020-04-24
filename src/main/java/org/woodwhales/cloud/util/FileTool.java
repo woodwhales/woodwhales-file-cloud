@@ -11,13 +11,13 @@ import cn.hutool.core.date.DatePattern;
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.NumberUtil;
 
-public class FileTools {
+public class FileTool {
 	
 	private final static String[] units = new String[]{"B", "KB", "MB", "GB", "TB"};
 	private final static String fileSizeFormat = "#,##0.#";
 	private final static String emptySize = "-";
 
-	private FileTools() {}
+	private FileTool() {}
 	
 	/**
 	 * 文件字节大小转换，带单位

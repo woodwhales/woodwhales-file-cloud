@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
 <title></title>
@@ -35,7 +35,7 @@
 		<strong>Copyright &copy; 2020 <a href="https://woodwhales.cn">woodwhales.cn</a>.
 		</strong> All rights reserved.
 		<div class="float-right d-none d-sm-inline-block">
-			<b>Version</b> 1.0.0
+			<b>Version</b> <span th:text="${version}"></span>
 		</div>
 	</footer>
 

@@ -11,7 +11,7 @@
 	</parent>
 	<groupId>org.woodwhales</groupId>
 	<artifactId>woodwhales-file-cloud</artifactId>
-	<version>1.0.0.0</version>
+	<version>1.0.1</version>
 	<name>woodwhales-file-cloud</name>
 	<description>woodwhales-file-cloud</description>
 
@@ -77,7 +77,10 @@
 			<artifactId>hutool-all</artifactId>
 			<version>5.3.1</version>
 		</dependency>
-
+		<dependency>
+			<groupId>com.google.code.gson</groupId>
+			<artifactId>gson</artifactId>
+		</dependency>
 		<!-- layui -->
 		<dependency>
 			<groupId>org.webjars</groupId>
@@ -135,7 +138,7 @@
 	</repositories>
 
 	<build>
-	   <finalName>${project.artifactId}</finalName>
+		<finalName>${project.artifactId}</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>

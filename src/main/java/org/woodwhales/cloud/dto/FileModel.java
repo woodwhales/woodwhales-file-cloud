@@ -5,7 +5,7 @@ import java.util.Objects;
 
 import org.apache.commons.net.ftp.FTPFile;
 import org.woodwhales.cloud.enums.FileTypeEnmu;
-import org.woodwhales.cloud.util.FileTools;
+import org.woodwhales.cloud.util.FileTool;
 
 import cn.hutool.core.lang.UUID;
 import lombok.AllArgsConstructor;
@@ -59,14 +59,14 @@ public class FileModel {
 						 .fileCode(UUID.randomUUID().toString())
 						 .name(ftpFile.getName())
 						 .path(path)
-						 .type(FileTools.getFileType(ftpFile.getName()))
-						 .fileType(FileTypeEnmu.match(FileTools.getFileType(ftpFile.getName())))
+						 .type(FileTool.getFileType(ftpFile.getName()))
+						 .fileType(FileTypeEnmu.match(FileTool.getFileType(ftpFile.getName())))
 						 .fileSize(ftpFile.getSize())
-						 .formatedFileSize(FileTools.readableFileSize(ftpFile.getSize()))
+						 .formatedFileSize(FileTool.readableFileSize(ftpFile.getSize()))
 						 .file(ftpFile.isFile())
 						 .directory(ftpFile.isDirectory())
 						 .updateTime(ftpFile.getTimestamp().getTime())
-						 .formatedUpdateTime(FileTools.formatFileUpdateTime(ftpFile))
+						 .formatedUpdateTime(FileTool.formatFileUpdateTime(ftpFile))
 						 .build();
 	}
 }

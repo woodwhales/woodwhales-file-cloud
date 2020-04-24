@@ -15,8 +15,10 @@ spring:
 logging: 
   level:
     org.woodwhales.cloud: DEBUG
+
+version: @project.version@
     
-ftp:  host: 192.168.171.1
+ftp:   host: 192.168.171.1
   port: 21
   user: woodwhales-ftp
   password: Admin,123

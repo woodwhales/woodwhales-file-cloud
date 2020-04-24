@@ -4,7 +4,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.woodwhales.cloud.dto.FileModel;
 import org.woodwhales.cloud.enums.FileTypeEnmu;
-import org.woodwhales.cloud.util.FileTools;
+import org.woodwhales.cloud.util.FileTool;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -56,7 +56,7 @@ public class FileVO {
 		BeanUtils.copyProperties(fileModel, fileVO);
 		fileVO.setFileSize(fileModel.getFormatedFileSize());
 		fileVO.setUpdateTime(fileModel.getFormatedUpdateTime());
-		fileVO.setIoniconName(FileTools.getIoniconName(fileModel));
+		fileVO.setIoniconName(FileTool.getIoniconName(fileModel));
 		fileVO.setFilePath(StringUtils.equals(fileModel.getPath(), "/") ? fileModel.getPath() + fileModel.getName() : fileModel.getPath() + "/" + fileModel.getName());
 		return fileVO;
 	}
