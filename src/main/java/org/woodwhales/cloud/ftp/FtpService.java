@@ -12,7 +12,9 @@ import java.util.stream.Collectors;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.net.ftp.FTPClient;
 import org.apache.commons.net.ftp.FTPFile;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.woodwhales.cloud.config.FileCloudConfig;
 import org.woodwhales.cloud.dto.FileModel;
 import org.woodwhales.cloud.exception.RequestParamException;
 
@@ -23,12 +25,16 @@ import lombok.extern.slf4j.Slf4j;
 @Service
 public class FtpService {
 	
+	@Autowired
+	private FileCloudConfig fileCloudConfig;
+	
 	/**
 	 * 初始化ftp客户端
 	 * @return {@link Ftp}
 	 */
 	private Ftp init() {
-		return new Ftp("10.99.0.148", 21, "woodwhales-ftp", "Admin,123");
+		return new Ftp(fileCloudConfig.getHost(), fileCloudConfig.getPort(), 
+				fileCloudConfig.getUser(), fileCloudConfig.getPassword());
 	}
 	
 	/**

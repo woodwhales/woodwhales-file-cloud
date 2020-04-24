@@ -16,3 +16,7 @@ logging:
   level:
     org.woodwhales.cloud: DEBUG
     
+ftp:  host: 192.168.171.1
+  port: 21
+  user: woodwhales-ftp
+  password: Admin,123
