@@ -10,18 +10,27 @@
   <!-- Font Awesome Icons -->
   <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
 
+  <!-- mycss -->
   <link rel="stylesheet" href="css/main.css">
   
+  <!-- ionicons -->
   <link rel="stylesheet" type="text/css" media="screen" href="plugins/iconic/ionicons.min.css">
   
   <!-- overlayScrollbars -->
   <link rel="stylesheet" href="plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
+
   <!-- Theme style -->
   <link rel="stylesheet" href="dist/css/adminlte.min.css">
+
   <!-- Ion Slider -->
   <link rel="stylesheet" href="plugins/ion-rangeslider/css/ion.rangeSlider.min.css">
+
   <!-- bootstrap slider -->
   <link rel="stylesheet" href="plugins/bootstrap-slider/css/bootstrap-slider.min.css">
+
+  <!-- toastr -->
+  <link rel="stylesheet" href="plugins/toastr/toastr.min.css">
+  
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
 </head>
@@ -167,11 +176,16 @@
 									<td th:text="${file.fileSize}">文件大小</td>
 									<td><div class="sparkbar" data-color="#00a65a" data-height="20" th:text="${file.updateTime}">文件修改时间</div></td>
 									<td>
+									   <!-- 下载 -->
 									   <ion-icon th:if="${#bools.isTrue(file.file)}" name="cloud-download-outline" class="opreate-btn opreation-class" style="cursor:pointer;" data-opreation='download' th:data-name="${file.name}" th:data-path="${file.path}" th:data-code="${file.fileCode}"></ion-icon>
 									   <ion-icon th:if="${#bools.isTrue(file.directory)}" class="opreation-class"></ion-icon>
+									   <!-- 分享 -->
 									   <ion-icon name="share-social-outline" class="opreate-btn opreation-class" style="cursor:pointer;" data-opreation='share' th:data-code="${file.fileCode}"></ion-icon>
+									   <!-- 属性 -->
 									   <ion-icon name="alert-circle-outline" class="opreate-btn opreation-class" style="cursor:pointer;" data-opreation='info' th:data-code="${file.fileCode}"></ion-icon>
+									   <!-- 编辑 -->
 									   <ion-icon name="create-outline" class="opreate-btn opreation-class" style="cursor:pointer;" data-opreation='edit' th:data-code="${file.fileCode}"></ion-icon>
+									   <!-- 删除 -->
 									   <ion-icon name="trash-outline" class="opreate-btn opreation-class" style="cursor:pointer;" data-opreation='delete' th:data-code="${file.fileCode}"></ion-icon>
 									</td>
 								</tr>
@@ -211,11 +225,12 @@
 <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 <!-- Ion Slider -->
 <script src="plugins/ion-rangeslider/js/ion.rangeSlider.min.js"></script>
-
+<!-- ionicons -->
 <script src="https://unpkg.com/ionicons@5.0.0/dist/ionicons.js"></script>
 <!-- Bootstrap slider -->
 <script src="plugins/bootstrap-slider/bootstrap-slider.min.js"></script>
-
+<!-- toastr -->
+<script src="plugins/toastr/toastr.min.js"></script>
 <!-- OPTIONAL SCRIPTS -->
 <script src="dist/js/demo.js"></script>
 
@@ -232,6 +247,22 @@
 <script src="dist/js/pages/dashboard2.js"></script>
 <script type="text/javascript">
 $(function () {
+	toastr.options = {
+			"closeButton": false, // 是否显示关闭按钮
+			"debug": false, // 是否使用debug模式
+			"positionClass": "toast-top-center",// 弹出窗的位置
+			"showDuration": "300",// 显示的动画时间
+			"hideDuration": "1000",// 消失的动画时间
+			"timeOut": "2000", // 展现时间
+			"extendedTimeOut": "1000",// 加长展示时间
+			"showEasing": "swing",// 显示时的动画缓冲方式
+			"hideEasing": "linear",// 消失时的动画缓冲方式
+			"showMethod": "fadeIn",// 显示时的动画方式
+			"hideMethod": "fadeOut", // 消失时的动画方式
+			"progressBar": true // 是否显示进度条
+  };
+
+	
   $('#usedSize').ionRangeSlider({
     type      : 'single',
     step      : 1,
@@ -260,28 +291,40 @@ $('.opreate-btn').click(function() {
 	var code = $(this).data('code');
 	var name = $(this).data('name');
 	var path = $(this).data('path');
+	
 	var filePath = $(this).data('filepath');
 	var isDirectory = $(this).data('directory');
 	var opreation = $(this).data('opreation');
 	var toParent = $(this).data('toparent');
 	var currentpath = $(this).data('currentpath');
 	
-	console.log('opreation', opreation);
-	console.log('toParent', toParent);
-	console.log('currentpath', currentpath);
-	
+	// 文件夹预览
 	if((isDirectory && opreation == 'preview')) {
 		window.location.href='./?path='+encodeURI(filePath)
 	}
 	
+	// 返回上级目录
 	if(opreation == 'changeDirToParent' && toParent) {
-		console.log('opreation', opreation);
-	    console.log('toParent', toParent);
 		window.location.href='./?path='+encodeURI(currentpath)+'&toParent='+toParent
 	}
 	
+	// 分享
+	if(opreation == 'share') {
+		$.ajax({
+			url : "./file/share",
+			async : false,
+			type : "POST",
+			dataType : "json",
+			contentType : "application/json", 
+			data: JSON.stringify({'code': code}), 
+			success : function(result) {
+				toastr.success("分享成功！"+ result.shareCode); 
+            }
+		});
+    }
+	
 	if(opreation == 'download') {
-		window.location.href='http://127.0.0.1:12306/file-cloud/file/download?path='+encodeURI(path)+'&fileName='+encodeURI(name)
+		window.location.href='./file/download?path='+encodeURI(path)+'&fileName='+encodeURI(name)
     }
 	
 })

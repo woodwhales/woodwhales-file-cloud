@@ -1,5 +1,7 @@
 package org.woodwhales.cloud.controller;
 
+import java.util.HashMap;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.woodwhales.cloud.controller.request.DeleteDirRequestBody;
@@ -18,6 +21,7 @@ import org.woodwhales.cloud.controller.request.DeleteFileRequestBody;
 import org.woodwhales.cloud.controller.request.DownloadRequestParam;
 import org.woodwhales.cloud.controller.request.ListRequestParam;
 import org.woodwhales.cloud.controller.request.MakeDirRequestBody;
+import org.woodwhales.cloud.controller.request.ShareFileRequestBody;
 import org.woodwhales.cloud.controller.request.UpdateRequestBody;
 import org.woodwhales.cloud.controller.request.UploadRequestBody;
 import org.woodwhales.cloud.exception.RequestParamException;
@@ -145,6 +149,23 @@ public class FileController {
 			return "true";
 		}
 		return "false";
+	}
+	
+	/**
+	 * 分享文件
+	 * 生成分享码
+	 * 分享码包含：当前分享文件code，分享拥有者code，分享起始时间，分享类型（临时/永久）
+	 * @param shareFileRequestBody
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	@ResponseBody
+	@PostMapping("/share")
+	public Object share(@RequestBody @Validated ShareFileRequestBody shareFileRequestBody, HttpServletRequest request, HttpServletResponse response) {
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("shareCode", "shareCode-" + StringUtils.replace(shareFileRequestBody.getCode(), "-", ""));
+		return map;
 	}
 
 }
