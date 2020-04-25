@@ -1,5 +1,7 @@
 # woodwhales-file-cloud
 
+[![](https://img.shields.io/badge/Author-woodwhales-green.svg)](https://woodwhales.cn/) ![](https://img.shields.io/badge/License-GPL%203.0-orange.svg)
+
 独立开源个人网盘
 
 > 作者：[woodwhale's blog](https://woodwhales.cn/)
