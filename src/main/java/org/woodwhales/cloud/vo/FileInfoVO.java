@@ -30,6 +30,9 @@ public class FileInfoVO {
 	// 文件大小，单位：字节
 	private String fileSize;
 	
+	// 文件大小，按照 KB 为单位格式化
+	private String formatedFileSize;
+	
 	// 修改时间
 	private String updateTime;
 	
@@ -42,7 +45,9 @@ public class FileInfoVO {
 		
 		if(fileModel.isDirectory()) {
 			fileInfoVO.setFileSize("-");
+			fileInfoVO.setFormatedFileSize("-");;
 		} else {
+			fileInfoVO.setFormatedFileSize(fileModel.getFormatedFileSize());
 			fileInfoVO.setFileSize(fileModel.getFileSize() + "");
 		}
 

@@ -140,6 +140,7 @@ $('.opreate-btn').click(function() {
 					$("#modalFileCode").text(response.data.fileCode)
 					$("#modalName").text(response.data.name)
 					$("#modalFileSize").text(response.data.fileSize)
+					$("#modalFormatedFileSize").text(response.data.formatedFileSize)
 					$("#modalFilePath").text(response.data.filePath)
 					$("#modalUpdateTime").text(response.data.updateTime)
 					$("#modalCreator").text(response.data.creator)
