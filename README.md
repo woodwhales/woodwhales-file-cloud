@@ -8,7 +8,7 @@
 
 技术支持：Spring Boot + Thymeleaf + AdminLTE
 
-![](/doc/images/woodwhales-file-cloud.png)
+![](doc/images/woodwhales-file-cloud.png)
 
 ## 环境要求
 
@@ -71,3 +71,9 @@ UI交互：
 2. 系统版本从 pom 文件中动态读取
 
 后台功能：封装 gson 工具中对象转json字符串方法
+
+### 1.0.2_2020-04-26
+
+UI 交互：增加分享、删除、文件详情交互
+
+后台功能：增加分享、删除、文件详情查看接口

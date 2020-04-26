@@ -79,6 +79,32 @@ public class FtpService {
 		}
 	}
 	
+	/**
+	 * 获取文件详情
+	 * @param path 当前文件的父路径
+	 * @param fileName 当前文件名
+	 * @return
+	 */
+	public FileModel getFile(String path, String fileName) {
+		Ftp ftp = init();
+		try {
+			FTPFile[] ftpFiles = ftp.lsFiles(path);
+			
+			if(ftpFiles.length == 0) {
+				return null;
+			}
+			
+			return Arrays.asList(ftpFiles)
+						.stream()
+						.filter(ftpFile-> StringUtils.equalsAny(ftpFile.getName(), fileName))
+						.map(ftpFile -> FileModel.convert(ftpFile, path))
+						.collect(Collectors.toList())
+						.get(0);
+		} finally {
+			close(ftp);
+		}
+	}
+	
 	private List<FileModel> lsFiles(String path, Ftp ftp) {
 		FTPFile[] ftpFiles = ftp.lsFiles(path);
 		

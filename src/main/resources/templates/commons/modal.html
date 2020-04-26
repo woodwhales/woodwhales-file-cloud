@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title></title>
+</head>
+<body>
+  <!-- 删除提示模态框 -->
+  <div class="modal fade" id="modal-delete">
+     <div class="modal-dialog">
+       <div class="modal-content bg-danger">
+         <div class="modal-header">
+           <h4 class="modal-title">操作确认提示</h4>
+           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+             <span aria-hidden="true">&times;</span>
+           </button>
+         </div>
+         <div class="modal-body">
+           <p>是否确认删除该文件？</p>
+           <input type="text" name="model-fileCode" id="model-fileCode" value="" hidden="true"/>
+         </div>
+         <div class="modal-footer justify-content-between">
+           <button type="button" class="btn btn-outline-light" data-dismiss="modal">取消</button>
+           <button type="button" class="btn btn-outline-light bg-danger" data-dismiss="modal" onclick="deleteFile();">删除</button>
+         </div>
+       </div>
+       <!-- /.modal-content -->
+     </div>
+     <!-- /.modal-dialog -->
+   </div>
+   <!-- 删除提示模态框 -->
+   
+    <!-- 文件属性模态框 -->
+	<div class="modal fade" id="modal-info">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content bg-info">
+            <div class="modal-header">
+              <h4 class="modal-title">文件属性</h4>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <p>文件编号：<span id="modalFileCode"></span></p>
+              <p>文件名称：<span id="modalName"></span></p>
+              <p>文件大小：<span id="modalFileSize"></span></p>
+              <p>文件路径：<span id="modalFilePath"></span></p>
+              <p>修改时间：<span id="modalUpdateTime"></span></p>
+              <p>上传作者：<span id="modalCreator"></span></p>
+            </div>
+          </div>
+          <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+      </div>
+      <!-- /.modal -->
+    <!-- 文件属性模态框 -->
+</body>
+</html>

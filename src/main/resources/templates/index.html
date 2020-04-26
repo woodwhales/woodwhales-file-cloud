@@ -43,7 +43,7 @@
 
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
-    <!-- Content Header (Page header) -->
+    <!-- Content Header (Page header) 页面头部 -->
     <div class="content-header">
       <div class="container-fluid">
         <div class="row mb-2">
@@ -52,18 +52,19 @@
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">主页</a></li>
+              <li class="breadcrumb-item"><a th:href="@{/}">主页</a></li>
               <li class="breadcrumb-item active">主仪表盘</li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
       </div><!-- /.container-fluid -->
     </div>
-    <!-- /.content-header -->
+    <!-- /.content-header 页面头部 -->
 
     <!-- Main content -->
     <section class="content">
       <div class="container-fluid">
+        <!-- 使用容量 -->
         <div class="row">
           <div class="col-12">
             <div class="card card-primary">
@@ -84,9 +85,9 @@
           </div>
           <!-- /.col -->
         </div>
-        <!-- /.row -->
+        <!-- 使用容量 -->
         
-        <!-- Info boxes -->
+        <!-- 文件分类统计 -->
         <div class="row">
           <div class="col-12 col-sm-6 col-md-3">
             <div class="info-box">
@@ -102,7 +103,6 @@
             </div>
             <!-- /.info-box -->
           </div>
-          <!-- /.col -->
           <div class="col-12 col-sm-6 col-md-3">
             <div class="info-box mb-3">
               <span class="info-box-icon bg-danger elevation-1"><ion-icon name="image-outline"></ion-icon></i></span>
@@ -112,9 +112,7 @@
               </div>
               <!-- /.info-box-content -->
             </div>
-            <!-- /.info-box -->
           </div>
-          <!-- /.col -->
 
           <!-- fix for small devices only -->
           <div class="clearfix hidden-md-up"></div>
@@ -129,9 +127,7 @@
               </div>
               <!-- /.info-box-content -->
             </div>
-            <!-- /.info-box -->
           </div>
-          <!-- /.col -->
           <div class="col-12 col-sm-6 col-md-3">
             <div class="info-box mb-3">
               <span class="info-box-icon bg-warning elevation-1"><ion-icon name="musical-notes-outline"></ion-icon></span>
@@ -142,11 +138,9 @@
               </div>
               <!-- /.info-box-content -->
             </div>
-            <!-- /.info-box -->
           </div>
-          <!-- /.col -->
         </div>
-        <!-- /.row -->
+        <!-- 文件分类统计 -->
 
         <!-- Main row -->
 		<div class="row">
@@ -156,7 +150,7 @@
 						<h3 class="card-title">当前位置：<span th:text="${currentPath}"></span></h3>
 						<div class="card-tools"><a class="opreate-btn" href="javascript:void(0);" th:data-currentpath="${currentPath}" data-toparent="true" data-opreation='changeDirToParent' th:text="${#strings.equals(currentPath, '/') ? '' : '返回上一级'}"></a></div>				
 					</div>
-					<!-- /.card-header -->
+					<!-- 文件列表 -->
 					<div class="card-body table-responsive p-0">
 						<table class="table table-hover text-nowrap">
 							<thead>
@@ -182,34 +176,34 @@
 									   <!-- 分享 -->
 									   <ion-icon name="share-social-outline" class="opreate-btn opreation-class" style="cursor:pointer;" data-opreation='share' th:data-code="${file.fileCode}"></ion-icon>
 									   <!-- 属性 -->
-									   <ion-icon name="alert-circle-outline" class="opreate-btn opreation-class" style="cursor:pointer;" data-opreation='info' th:data-code="${file.fileCode}"></ion-icon>
+									   <ion-icon name="alert-circle-outline" class="opreate-btn opreation-class" style="cursor:pointer;" data-opreation='info' th:data-path="${file.path}" th:data-name="${file.name}" th:data-code="${file.fileCode}"></ion-icon>
 									   <!-- 编辑 -->
 									   <ion-icon name="create-outline" class="opreate-btn opreation-class" style="cursor:pointer;" data-opreation='edit' th:data-code="${file.fileCode}"></ion-icon>
 									   <!-- 删除 -->
-									   <ion-icon name="trash-outline" class="opreate-btn opreation-class" style="cursor:pointer;" data-opreation='delete' th:data-code="${file.fileCode}"></ion-icon>
+									   <ion-icon name="trash-outline" class="opreate-btn" style="cursor:pointer;" data-toggle="modal" data-target="#modal-delete" th:onclick="values([[${file.fileCode}]]);"></ion-icon>
 									</td>
 								</tr>
 							</tbody>
 						</table>
 					</div>
-					<!-- /.card-body -->
+					<!-- 文件列表 -->
 				</div>
 				<!-- /.card -->
 			</div>
 		</div>
 
-		  </div>
-        </div>
-        <!-- /.row -->
       </div><!--/. container-fluid -->
     </section>
-    <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
 
   <!-- 页脚 -->
   <div th:replace="commons/bar::#footer"></div>
+
 </div>
+
+<div th:replace="commons/modal::#modal-delete"></div>
+<div th:replace="commons/modal::#modal-info"></div>
 <!-- ./wrapper -->
 
 <!-- REQUIRED SCRIPTS -->
@@ -245,90 +239,6 @@
 
 <!-- PAGE SCRIPTS -->
 <script src="dist/js/pages/dashboard2.js"></script>
-<script type="text/javascript">
-$(function () {
-	toastr.options = {
-			"closeButton": false, // 是否显示关闭按钮
-			"debug": false, // 是否使用debug模式
-			"positionClass": "toast-top-center",// 弹出窗的位置
-			"showDuration": "300",// 显示的动画时间
-			"hideDuration": "1000",// 消失的动画时间
-			"timeOut": "2000", // 展现时间
-			"extendedTimeOut": "1000",// 加长展示时间
-			"showEasing": "swing",// 显示时的动画缓冲方式
-			"hideEasing": "linear",// 消失时的动画缓冲方式
-			"showMethod": "fadeIn",// 显示时的动画方式
-			"hideMethod": "fadeOut", // 消失时的动画方式
-			"progressBar": true // 是否显示进度条
-  };
-
-	
-  $('#usedSize').ionRangeSlider({
-    type      : 'single',
-    step      : 1,
-    postfix   : 'GB',
-    from      : 35,
-    hideMinMax: true,
-    hideFromTo: true
-  })
-})
-
-var DownLoadFile = function (options) {
-    var config = $.extend(true, { method: 'get' }, options);
-    var $iframe = $('<iframe id="down-file-iframe" />');
-    var $form = $('<form target="down-file-iframe" method="' + config.method + '" />');
-    $form.attr('action', config.url);
-    for (var key in config.data) {
-        $form.append('<input type="hidden" name="' + key + '" value="' + config.data[key] + '" />');
-    }
-    $iframe.append($form);
-    $(document.body).append($iframe);
-    $form[0].submit();
-    $iframe.remove();
-}
-
-$('.opreate-btn').click(function() {
-	var code = $(this).data('code');
-	var name = $(this).data('name');
-	var path = $(this).data('path');
-	
-	var filePath = $(this).data('filepath');
-	var isDirectory = $(this).data('directory');
-	var opreation = $(this).data('opreation');
-	var toParent = $(this).data('toparent');
-	var currentpath = $(this).data('currentpath');
-	
-	// 文件夹预览
-	if((isDirectory && opreation == 'preview')) {
-		window.location.href='./?path='+encodeURI(filePath)
-	}
-	
-	// 返回上级目录
-	if(opreation == 'changeDirToParent' && toParent) {
-		window.location.href='./?path='+encodeURI(currentpath)+'&toParent='+toParent
-	}
-	
-	// 分享
-	if(opreation == 'share') {
-		$.ajax({
-			url : "./file/share",
-			async : false,
-			type : "POST",
-			dataType : "json",
-			contentType : "application/json", 
-			data: JSON.stringify({'code': code}), 
-			success : function(result) {
-				toastr.success("分享成功！"+ result.shareCode); 
-            }
-		});
-    }
-	
-	if(opreation == 'download') {
-		window.location.href='./file/download?path='+encodeURI(path)+'&fileName='+encodeURI(name)
-    }
-	
-})
-
-</script>
+<script src="js/main.js"></script>
 </body>
 </html>
