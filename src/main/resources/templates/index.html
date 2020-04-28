@@ -147,7 +147,7 @@
 			<div class="col-12">
 				<div class="card">
 					<div class="card-header">
-						<h3 class="card-title">当前位置：<span th:text="${currentPath}"></span></h3>
+						<h3 class="card-title">当前位置：<span id="span-current-path" th:text="${currentPath}"></span></h3>
 						<div class="card-tools"><a class="opreate-btn" href="javascript:void(0);" th:data-currentpath="${currentPath}" data-toparent="true" data-opreation='changeDirToParent' th:text="${#strings.equals(currentPath, '/') ? '' : '返回上一级'}"></a></div>				
 					</div>
 					<!-- 文件列表 -->
@@ -163,22 +163,24 @@
 								</tr>
 							</thead>
 							<tbody>
-								<tr th:each="file,fileStat : ${files}" th:data-name="${file.name}" 
-								th:data-path="${file.path}" th:data-file="${file.file}" th:data-directory="${file.directory}">
-									<td th:text="${fileStat.index+1}"></td>
-									<td class="opreate-btn" style="cursor:pointer;" data-opreation='preview' th:data-code="${file.fileCode}" th:data-directory="${file.directory}" th:data-filepath="${file.filePath}" th:data-name="${file.name}"><ion-icon th:name="${file.ioniconName}"></ion-icon>&nbsp;&nbsp;<span th:text="${file.name}"></span></td>
+								<tr th:each="file,fileStat : ${files}" th:data-code="${file.fileCode}" th:data-name="${file.name}" th:data-ionicon="${file.ioniconName}" 
+								th:data-path="${file.path}" th:data-isfile="${file.file}" th:data-isdirectory="${file.directory}" th:data-filepath="${file.filePath}">
+									<td th:text="${fileStat.index+1}" th:data-dir="true" th:id="'dir-'+${file.fileCode}"></td>
+									<td class="opreate-btn" style="cursor:pointer;" data-opreation='preview' th:id="'file-name-div-'+${file.fileCode}">
+										<ion-icon th:name="${file.ioniconName}" th:id="'file-ionicon-'+${file.fileCode}"></ion-icon>&nbsp;&nbsp;<span th:text="${file.name}" th:id="'file-name-span-'+${file.fileCode}"></span>
+									</td>
 									<td th:text="${file.fileSize}">文件大小</td>
 									<td><div class="sparkbar" data-color="#00a65a" data-height="20" th:text="${file.updateTime}">文件修改时间</div></td>
 									<td>
 									   <!-- 下载 -->
-									   <ion-icon th:if="${#bools.isTrue(file.file)}" name="cloud-download-outline" class="opreate-btn opreation-class" style="cursor:pointer;" data-opreation='download' th:data-name="${file.name}" th:data-path="${file.path}" th:data-code="${file.fileCode}"></ion-icon>
+									   <ion-icon th:if="${#bools.isTrue(file.file)}" name="cloud-download-outline" class="opreate-btn opreation-class" style="cursor:pointer;" data-opreation='download'></ion-icon>
 									   <ion-icon th:if="${#bools.isTrue(file.directory)}" class="opreation-class"></ion-icon>
 									   <!-- 分享 -->
-									   <ion-icon name="share-social-outline" class="opreate-btn opreation-class" style="cursor:pointer;" data-opreation='share' th:data-code="${file.fileCode}"></ion-icon>
+									   <ion-icon name="share-social-outline" class="opreate-btn opreation-class" style="cursor:pointer;" data-opreation='share'></ion-icon>
 									   <!-- 属性 -->
-									   <ion-icon name="alert-circle-outline" class="opreate-btn opreation-class" style="cursor:pointer;" data-opreation='info' th:data-path="${file.path}" th:data-name="${file.name}" th:data-code="${file.fileCode}"></ion-icon>
+									   <ion-icon name="alert-circle-outline" class="opreate-btn opreation-class" style="cursor:pointer;" data-opreation='info'></ion-icon>
 									   <!-- 编辑 -->
-									   <ion-icon name="create-outline" class="opreate-btn opreation-class" style="cursor:pointer;" data-opreation='edit' th:data-code="${file.fileCode}"></ion-icon>
+									   <ion-icon name="create-outline" class="opreate-btn opreation-class" style="cursor:pointer;" data-opreation='edit'></ion-icon>
 									   <!-- 删除 -->
 									   <ion-icon name="trash-outline" class="opreate-btn" style="cursor:pointer;" data-toggle="modal" data-target="#modal-delete" th:onclick="values([[${file.fileCode}]]);"></ion-icon>
 									</td>

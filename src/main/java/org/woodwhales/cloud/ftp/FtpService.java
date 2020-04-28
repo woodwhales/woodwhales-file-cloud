@@ -180,8 +180,19 @@ public class FtpService {
 		}
 	}
 	
-	private boolean existFile(String filePath, Ftp ftp) throws Exception {
-		return ftp.existFile(filePath);
+	/**
+	 * 判断文件或者目录是否存在
+	 * @param filePath
+	 * @return
+	 * @throws Exception
+	 */
+	public boolean exist(String filePath) throws Exception {
+		Ftp ftp = init();
+		try {
+			return ftp.exist(filePath);
+		} finally {
+			close(ftp);
+		}
 	}
 	
 	/**
@@ -211,7 +222,7 @@ public class FtpService {
 	public boolean updateFileName(String oldFilePath, String newFilePath, String newPath) throws Exception {
 		Ftp ftp = init();
 		try {
-			if(!existFile(oldFilePath, ftp)) {
+			if(!ftp.exist(oldFilePath)) {
 				return false;
 			}
 

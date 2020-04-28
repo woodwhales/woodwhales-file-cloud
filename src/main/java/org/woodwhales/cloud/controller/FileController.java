@@ -30,6 +30,7 @@ import org.woodwhales.cloud.controller.request.UploadRequestBody;
 import org.woodwhales.cloud.controller.response.RespBean;
 import org.woodwhales.cloud.dto.FileModel;
 import org.woodwhales.cloud.ftp.FtpService;
+import org.woodwhales.cloud.util.JsonTool;
 import org.woodwhales.cloud.vo.FileInfoVO;
 
 import lombok.extern.slf4j.Slf4j;
@@ -124,8 +125,9 @@ public class FileController {
 	 * @throws Exception
 	 */
 	@PostMapping("/update")
-	public RespBean download(@RequestBody @Validated UpdateRequestBody updateRequestBody, HttpServletRequest request, HttpServletResponse response) throws Exception {
-		boolean exist = ftpService.existFile(updateRequestBody.getOldFilePath());
+	public RespBean update(@RequestBody @Validated UpdateRequestBody updateRequestBody, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		log.info("request for update, updateRequestBody = {}", JsonTool.toJsonString(updateRequestBody));
+		boolean exist = ftpService.exist(updateRequestBody.getOldFilePath());
 		if(!exist) {
 			return RespBean.error("要更新的文件不存在");
 		}
@@ -150,7 +152,7 @@ public class FileController {
 	@PostMapping("/mkdir")
 	public RespBean mkdir(@RequestBody @Validated MakeDirRequestBody makeDirRequestBody, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String parentDir = StringUtils.defaultIfBlank(makeDirRequestBody.getPath(), "/");
-		boolean existFile = ftpService.existFile(parentDir);
+		boolean existFile = ftpService.exist(parentDir);
 		if(!existFile) {
 			return RespBean.error("要创建文件夹的路径不存在");
 		}

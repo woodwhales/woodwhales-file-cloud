@@ -20,7 +20,6 @@ public class UpdateRequestBody {
 	@NotBlank(message = "要更新的文件目录不允许为空")
 	private String oldPath;
 	
-	@NotBlank(message = "要更新的文件新名不允许为空")
 	private String oldFileName;
 
 	private String newPath;
@@ -32,7 +31,7 @@ public class UpdateRequestBody {
 	}
 	
 	public String getNewFilePath() {
-		// 旧文件路径不写表示，只更新文件名称
+		// 新文件路径不写表示，只更新文件名称
 		if(StringUtils.isBlank(newPath)) {
 			newPath = oldPath;
 		}

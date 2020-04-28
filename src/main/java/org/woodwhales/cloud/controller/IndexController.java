@@ -1,5 +1,6 @@
 package org.woodwhales.cloud.controller;
 
+import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -14,6 +15,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.woodwhales.cloud.controller.request.ListRequestParam;
 import org.woodwhales.cloud.dto.FileModel;
@@ -56,6 +58,12 @@ public class IndexController {
 			model.addAttribute("files", Collections.emptyList());
 		}
 		return "index";
+	}
+	
+	@ResponseBody
+	@GetMapping("/about")
+	public void about(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		response.sendRedirect("https://woodwhales.cn/");
 	}
 	
 }
